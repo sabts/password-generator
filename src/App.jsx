@@ -1,10 +1,9 @@
-import Button from "./components/button/Button";
+import PasswordGenerator from "./components/password-generator/PasswordGenerator";
 
 const App = () => {
   return (
     <>
-      <h1>Template React</h1>
-      <Button />
+     <PasswordGenerator></PasswordGenerator>
     </>
   );
 };
