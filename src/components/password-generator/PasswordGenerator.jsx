@@ -8,13 +8,15 @@ const [includeLowercase, setIncludeLowercase] = useState(false);
 const [includeNumbers, setIncludeNumbers] = useState(false);
 const [includeSymbols, setIncludeSymbols] = useState(false);
 const allCheckboxs = [includeUppercase, includeLowercase, includeNumbers, includeSymbols];
-//value={password} 
-//const password = generateAleatoryCharacters
+const [password, setPassword] = useState('');
+const generatedpassword = passwordGenerator(toggleContentinPassword)
 
+const categories = ['uppercase', 'lowercase', 'numbers', 'symbols']
+let passwordAllowedChar = "";
     return <>
     <div>
         <label>
-        <input type="text" placeholder="P4$W0RD!" readOnly/>
+        <input type="text" placeholder="P4$W0RD!" value={password} readOnly/>
         </label>
     </div>
     <div>
@@ -75,3 +77,24 @@ const toggleCheekerActivateButton = (allCheckboxs) => {
 const generateAleatoryCharacters = max => {
     return Math.floor(Math.random() * max);
   };
+
+const toggleContentinPassword = (allCheckboxs) => {
+    let passwordAllowedChar = '';
+
+    categories.forEach((category, index) => {
+        if (allCheckboxs[index]) {
+          passwordAllowedChar += PASSWORD_CONTENT[category];}
+})
+if (!passwordAllowedChar) return
+}
+
+const passwordGenerator = (rangeValue) => {
+    const passwordAllowedChar = toggleContentinPassword();
+
+   let generatedPassword = '';
+    for (let i = 0; i < rangeValue; i++) {
+      const randomIndex = Math.floor(Math.random() * passwordAllowedChar.length);
+      generatedPassword += passwordAllowedChar.charAt(randomIndex);
+    }
+    setPassword(generatedPassword)
+};
