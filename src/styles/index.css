@@ -26,11 +26,12 @@ nav ul {
 
 body {
   margin: 0;
-  font-family:'DM Mono',sans-serif;
+ font-family: "DM Mono";
   padding-top: 1rem;
   display: flex;
   align-items: center;
   align-content: center;
   flex-direction: column;
   background-color: #110032;
+  color: white;
 }

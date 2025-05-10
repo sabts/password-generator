@@ -5,6 +5,9 @@ import styles from "./passwordgenerator.module.css"
 const categories = ['uppercase', 'lowercase', 'numbers', 'symbols']
 
 const PasswordGenerator = () =>{
+    //styles
+
+    //states
 const [rangeValue, setRangeValue] = useState(4);
 const [includeUppercase, setIncludeUppercase] = useState(false);
 const [includeLowercase, setIncludeLowercase] = useState(false);
@@ -12,56 +15,60 @@ const [includeNumbers, setIncludeNumbers] = useState(false);
 const [includeSymbols, setIncludeSymbols] = useState(false);
 const allCheckboxs = [includeUppercase, includeLowercase, includeNumbers, includeSymbols];
 const [password, setPassword] = useState('');
-//const generatedpassword = passwordGenerator(toggleContentinPassword)
 let passwordAllowedChar = "";
+
     return <main className={styles["container"]}>
     <div>
         <label>
-        <input type="text" placeholder="P4$W0RD!" value={password} readOnly/>
+        <input type="text" placeholder="P4$W0RD!" value={password} readOnly className={styles['input-text-type']}/>
         </label>
     </div>
-    <div>
+    <div className={styles["range-container"]}>
         <label>
-        LENGTH:{rangeValue} <input type="range"  min="4" max="32" value={rangeValue} onInput={(e)=> showRangeValue(e, setRangeValue)}/>
+        LENGTH:{rangeValue} <input type="range"  min="4" max="32" value={rangeValue} onInput={(e)=> showRangeValue(e, setRangeValue)} className={styles["input-range"]}/>
         </label>
     </div>
-    <div> 
+    <div className={styles["toggle-option-box"]}> 
         <span>Include Uppercase</span>
-        <label>
+        <label className={styles['label-checkbox']}>
         <input type="checkbox"
          checked={includeUppercase}
-         onChange={() => setIncludeUppercase(!includeUppercase)}/>
+         onChange={() => setIncludeUppercase(!includeUppercase)}
+         className={styles['input-toggle']}/>
         </label>
         </div>
        
-    <div>
+    <div className={styles["toggle-option-box"]}>
         <span>Include Lowercase</span>
-        <label>
+        <label className={styles['label-checkbox']}>
         <input type="checkbox"
         checked={includeLowercase}
-        onChange={() => setIncludeLowercase(!includeLowercase)}/>
+        onChange={() => setIncludeLowercase(!includeLowercase)}
+        className={styles['input-toggle']}/>
         </label> 
     </div>
            
-    <div>  
+    <div className={styles["toggle-option-box"]}>  
         <span>Include Numbers</span>
-        <label>
+        <label className={styles['label-checkbox']}>
         <input type="checkbox"
         checked={includeNumbers}
-        onChange={() => setIncludeNumbers(!includeNumbers)}/>
+        onChange={() => setIncludeNumbers(!includeNumbers)}
+        className={styles['input-toggle']}/>
         </label>
     </div>
 
-    <div> 
+    <div className={styles["toggle-option-box"]}> 
         <span>Include Symbols</span>
-        <label>
+        <label className={styles['label-checkbox']}>
         <input type="checkbox"
         checked={includeSymbols}
-        onChange={() => setIncludeSymbols(!includeSymbols)}/>
+        onChange={() => setIncludeSymbols(!includeSymbols)}
+        className={styles['input-toggle']}/>
         </label> 
         </div>
 
-    <button onClick={() => passwordGenerator(allCheckboxs, rangeValue, setPassword)} disabled={!toggleCheekerActivateButton(allCheckboxs)}> Generate Password </button>
+    <button onClick={() => passwordGenerator(allCheckboxs, rangeValue, setPassword)} disabled={!toggleCheekerActivateButton(allCheckboxs)} className={styles["button-default"]}> Generate Password </button>
     </main>
 }
 
@@ -90,13 +97,15 @@ const passwordGenerator = (allCheckboxs, rangeValue, setPassword) => {
     const passwordAllowedChar = toggleContentinPassword(allCheckboxs);
     let generatedPassword = '';
 
-    categories.forEach((category => {
-        const chars = PASSWORD_CONTENT[category];
-        const randomChar = chars[Math.floor(Math.random() * chars.length)];
-        generatedPassword += randomChar;
-    } ))
+    categories.forEach((category, index) => {
+        if (allCheckboxs[index]) {
+            const chars = PASSWORD_CONTENT[category];
+            const randomChar = chars[Math.floor(Math.random() * chars.length)];
+            generatedPassword += randomChar;
+        }
+    });
 
-    while (generatedPassword.length < rangeValue) {
+   while (generatedPassword.length < rangeValue) {
         const randomChar = passwordAllowedChar[Math.floor(Math.random() * passwordAllowedChar.length)];
         generatedPassword += randomChar;
     }
