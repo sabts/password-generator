@@ -97,8 +97,8 @@ const passwordGenerator = (allCheckboxs, rangeValue, setPassword) => {
     const passwordAllowedChar = toggleContentinPassword(allCheckboxs);
     let generatedPassword = '';
 
-    categories.forEach((category, index) => {
-        if (allCheckboxs[index]) {
+    categories.forEach((category, i) => {
+        if (allCheckboxs[i]) {
             const chars = PASSWORD_CONTENT[category];
             const randomChar = chars[Math.floor(Math.random() * chars.length)];
             generatedPassword += randomChar;
