@@ -1,5 +1,8 @@
 import { useState } from "react"
 import {PASSWORD_CONTENT} from "../../constants/passwordContent"
+import styles from "./passwordgenerator.module.css"
+
+const categories = ['uppercase', 'lowercase', 'numbers', 'symbols']
 
 const PasswordGenerator = () =>{
 const [rangeValue, setRangeValue] = useState(4);
@@ -9,11 +12,9 @@ const [includeNumbers, setIncludeNumbers] = useState(false);
 const [includeSymbols, setIncludeSymbols] = useState(false);
 const allCheckboxs = [includeUppercase, includeLowercase, includeNumbers, includeSymbols];
 const [password, setPassword] = useState('');
-const generatedpassword = passwordGenerator(toggleContentinPassword)
-
-const categories = ['uppercase', 'lowercase', 'numbers', 'symbols']
+//const generatedpassword = passwordGenerator(toggleContentinPassword)
 let passwordAllowedChar = "";
-    return <>
+    return <main className={styles["container"]}>
     <div>
         <label>
         <input type="text" placeholder="P4$W0RD!" value={password} readOnly/>
@@ -60,10 +61,9 @@ let passwordAllowedChar = "";
         </label> 
         </div>
 
-    <button disabled={!toggleCheekerActivateButton(allCheckboxs)}> Generate Password </button>
-    </>
+    <button onClick={() => passwordGenerator(allCheckboxs, rangeValue, setPassword)} disabled={!toggleCheekerActivateButton(allCheckboxs)}> Generate Password </button>
+    </main>
 }
-export default PasswordGenerator
 
 const showRangeValue =  (event, setRangeValue)=> {
     const newValue = event.target.value
@@ -74,27 +74,34 @@ const toggleCheekerActivateButton = (allCheckboxs) => {
     return allCheckboxs.some(check => check)
 }
 
-const generateAleatoryCharacters = max => {
-    return Math.floor(Math.random() * max);
-  };
-
-const toggleContentinPassword = (allCheckboxs) => {
+const toggleContentinPassword = (allCheckboxs,password) => {
     let passwordAllowedChar = '';
-
+  
     categories.forEach((category, index) => {
-        if (allCheckboxs[index]) {
-          passwordAllowedChar += PASSWORD_CONTENT[category];}
-})
-if (!passwordAllowedChar) return
+      if (allCheckboxs[index]) {
+        passwordAllowedChar += PASSWORD_CONTENT[category];
+      }
+    });
+  
+    return passwordAllowedChar;
 }
 
-const passwordGenerator = (rangeValue) => {
-    const passwordAllowedChar = toggleContentinPassword();
+const passwordGenerator = (allCheckboxs, rangeValue, setPassword) => {
+    const passwordAllowedChar = toggleContentinPassword(allCheckboxs);
+    let generatedPassword = '';
 
-   let generatedPassword = '';
-    for (let i = 0; i < rangeValue; i++) {
-      const randomIndex = Math.floor(Math.random() * passwordAllowedChar.length);
-      generatedPassword += passwordAllowedChar.charAt(randomIndex);
+    categories.forEach((category => {
+        const chars = PASSWORD_CONTENT[category];
+        const randomChar = chars[Math.floor(Math.random() * chars.length)];
+        generatedPassword += randomChar;
+    } ))
+
+    while (generatedPassword.length < rangeValue) {
+        const randomChar = passwordAllowedChar[Math.floor(Math.random() * passwordAllowedChar.length)];
+        generatedPassword += randomChar;
     }
+
     setPassword(generatedPassword)
 };
+
+export default PasswordGenerator
