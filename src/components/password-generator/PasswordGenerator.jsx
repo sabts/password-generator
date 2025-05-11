@@ -30,42 +30,38 @@ let passwordAllowedChar = "";
     </div>
     <div className={styles["toggle-option-box"]}> 
         <span>Include Uppercase</span>
-        <label className={styles['label-checkbox']}>
-        <input type="checkbox"
+        <input id="uppercase" type="checkbox"
          checked={includeUppercase}
          onChange={() => setIncludeUppercase(!includeUppercase)}
          className={styles['input-toggle']}/>
-        </label>
+        <label htmlFor="uppercase" className={styles['label-checkbox']}> </label>
         </div>
        
     <div className={styles["toggle-option-box"]}>
         <span>Include Lowercase</span>
-        <label className={styles['label-checkbox']}>
-        <input type="checkbox"
+        <input id="lowercase" type="checkbox"
         checked={includeLowercase}
         onChange={() => setIncludeLowercase(!includeLowercase)}
         className={styles['input-toggle']}/>
-        </label> 
+       <label htmlFor="lowercase" className={styles['label-checkbox']}>  </label> 
     </div>
            
     <div className={styles["toggle-option-box"]}>  
         <span>Include Numbers</span>
-        <label className={styles['label-checkbox']}>
-        <input type="checkbox"
+        <input id="numbers" type="checkbox"
         checked={includeNumbers}
         onChange={() => setIncludeNumbers(!includeNumbers)}
         className={styles['input-toggle']}/>
-        </label>
+        <label htmlFor="numbers" className={styles['label-checkbox']}> </label>
     </div>
 
     <div className={styles["toggle-option-box"]}> 
         <span>Include Symbols</span>
-        <label className={styles['label-checkbox']}>
-        <input type="checkbox"
+        <input id="symbols" type="checkbox"
         checked={includeSymbols}
         onChange={() => setIncludeSymbols(!includeSymbols)}
         className={styles['input-toggle']}/>
-        </label> 
+         <label htmlFor="symbols" className={styles['label-checkbox']}> </label> 
         </div>
 
     <button onClick={() => passwordGenerator(allCheckboxs, rangeValue, setPassword)} disabled={!toggleCheekerActivateButton(allCheckboxs)} className={styles["button-default"]}> Generate Password </button>
@@ -81,7 +77,7 @@ const toggleCheekerActivateButton = (allCheckboxs) => {
     return allCheckboxs.some(check => check)
 }
 
-const toggleContentinPassword = (allCheckboxs,password) => {
+const toggleContentinPassword = (allCheckboxs) => {
     let passwordAllowedChar = '';
   
     categories.forEach((category, index) => {
