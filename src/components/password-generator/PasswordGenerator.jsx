@@ -106,7 +106,12 @@ const passwordGenerator = (allCheckboxs, rangeValue, setPassword) => {
         generatedPassword += randomChar;
     }
 
-    setPassword(generatedPassword)
+    const shuffledpassword = generatedPassword
+    .split('')
+    .sort(() => Math.random() - 0.5)
+    .join('');
+
+    setPassword(shuffledpassword)
 };
 
 export default PasswordGenerator
